@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Datasphere - Expiry Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Datasphere - Predict Expiry, Save Money!</h1>
+    <form method="POST" action="/predict">
+        <label>Category:</label>
+        <select name="category">
+            <option value="Pharma">Pharma</option>
+            <option value="Food-Dairy">Food/Dairy</option>
+        </select><br><br>
+        <label>Product:</label>
+        <input type="text" name="product" required><br><br>
+        <label>Manufacture Date:</label>
+        <input type="date" name="manufacture_date" required><br><br>
+        <label>Expiry Date:</label>
+        <input type="date" name="expiry_date" required><br><br>
+        <label>Purchase Date:</label>
+        <input type="date" name="purchase_date" required><br><br>
+        <label>Recommended Temp (°C):</label>
+        <input type="number" name="temp_recommended" step="0.1" required><br><br>
+        <label>Actual Temp (°C):</label>
+        <input type="number" name="temp_actual" step="0.1" required><br><br>
+        <button type="submit">Predict Expiry</button>
+    </form>
+</body>
+</html>

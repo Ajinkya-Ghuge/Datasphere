@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Datasphere - Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Prediction Result</h1>
+    <p><strong>Category:</strong> {{ category }}</p>
+    <p><strong>Product:</strong> {{ product }}</p>
+    <p><strong>New Expiry Date:</strong> {{ expiry }}</p>
+    <p><strong>Estimated Savings:</strong> ₹{{ savings }}</p>
+    <a href="/">Back to Home</a>
+</body>
+</html>
