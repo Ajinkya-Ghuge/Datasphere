@@ -26,6 +26,4 @@ This project uses **machine learning algorithms** to:
 
 ---
 
-## 📂 Folder Structure
 
-# Datasphere
