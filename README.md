@@ -70,34 +70,257 @@ Manual tracking and guesswork regarding product expiration lead to massive inven
 ### Component Diagram
 
 ```mermaid
-graph TD
-    %% Styling configurations
-    classDef client fill:#1a233a,stroke:#00f5ff,stroke-width:2px,color:#fff;
-    classDef backend fill:#0d1428,stroke:#ff00aa,stroke-width:2px,color:#fff;
-    classDef service fill:#112244,stroke:#ffd700,stroke-width:2px,color:#fff;
-    classDef storage fill:#1c1c24,stroke:#00ff88,stroke-width:2px,color:#fff;
+flowchart TB
 
-    subgraph ClientLayer [User Web Interface Layer]
-        A[HTML Input Dashboards<br>Product Parameter Form UI]:::client
-        B[Static App Assets<br>Form Validation Engine]:::client
-        A --- B
+    subgraph ClientLayer["User Web Interface Layer"]
+        A["HTML Input Dashboard<br/>Product Parameter Form UI"]
+        B["Static Assets<br/>Validation Engine"]
     end
 
-    subgraph ServerLayer [Flask Application Backend]
-        C[app.py<br>HTTP Route Handlers & Interface]:::backend
+    subgraph ServerLayer["Flask Backend"]
+        C["app.py<br/>HTTP Route Handlers"]
     end
 
-    subgraph CoreEngine [Predictive AI Layer]
-        D[model.py / predictor<br>scikit-learn Inference Models]:::service
+    subgraph CoreEngine["Predictive AI Layer"]
+        D["model.py<br/>ML Inference Engine"]
     end
 
-    subgraph AnalyticsLayer [Data Visualization Space]
-        E[Jupyter Notebooks<br>EDA Data Exploration Scripts]:::storage
+    subgraph AnalyticsLayer["Analytics & Validation"]
+        E["Jupyter Notebooks<br/>EDA & Model Evaluation"]
     end
 
-    %% Structural Connectivity Flow
-    B -->|REST API JSON Payloads| C
-    C -->|REST API JSON Responses| B
-    C -->|Vector Extrapolation| D
-    D -->|Inference Return Arrays| C
-    E -->|Model Performance Validation| D
+    A --> B
+    B -->|JSON Request| C
+    C -->|Prediction Request| D
+    D -->|Prediction Response| C
+    E -->|Model Validation| D
+    C -->|JSON Response| B
+```
+
+---
+
+## 🔄 Request Flow
+
+```mermaid
+sequenceDiagram
+
+    actor User
+
+    participant Browser
+    participant FlaskApp
+    participant Model
+    participant Analytics
+
+    User->>Browser: Enter Product Information
+
+    Browser->>FlaskApp: POST /predict
+
+    FlaskApp->>Model: Preprocess Features
+
+    activate Model
+
+    Model->>Model: Feature Engineering
+    Model->>Model: Run ML Prediction
+
+    Model-->>FlaskApp: Predicted Shelf Life
+
+    deactivate Model
+
+    FlaskApp->>Analytics: Log Prediction Metrics
+
+    Analytics-->>FlaskApp: Tracking Information
+
+    FlaskApp-->>Browser: JSON Response
+
+    Browser-->>User: Display Expiry Prediction
+```
+
+---
+
+# 🤖 Machine Learning Pipeline
+
+```mermaid
+flowchart LR
+
+    A["Data Collection"] -->
+    B["Data Cleaning & Preprocessing"]
+
+    B -->
+    C["Feature Engineering"]
+
+    C -->
+    D["Model Training"]
+
+    D -->
+    E["Model Evaluation"]
+
+    E -->
+    F["Expiry Date Prediction"]
+```
+
+---
+
+# 🚀 Project Workflow
+
+```mermaid
+flowchart TD
+
+    Start([Start])
+
+    --> Load[Load Model]
+
+    Load --> Validate{Model Available?}
+
+    Validate -->|No| Error[Raise Error]
+
+    Validate -->|Yes| Run[Start Flask Server]
+
+    Run --> Wait[Wait For User Request]
+
+    Wait --> Input[Receive Product Details]
+
+    Input --> Process[Preprocess Data]
+
+    Process --> Predict[Generate Prediction]
+
+    Predict --> Result[Create Response]
+
+    Result --> Display[Show Prediction]
+
+    Display --> End([Finish])
+```
+
+---
+
+# 🛠️ Tech Stack
+
+| Category         | Technology          | Purpose           |
+| ---------------- | ------------------- | ----------------- |
+| Language         | Python 3.8+         | Core Development  |
+| Backend          | Flask               | Web Application   |
+| Data Processing  | Pandas, NumPy       | Data Manipulation |
+| Machine Learning | Scikit-Learn        | Prediction Models |
+| Visualization    | Matplotlib, Seaborn | Analytics         |
+| Experimentation  | Jupyter Notebook    | Model Training    |
+
+---
+
+# 📂 Project Structure
+
+```plaintext
+expiry-predictor/
+│
+├── data/
+│   └── datasets/
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+├── templates/
+│
+├── notebooks/
+│
+├── app.py
+├── model.py
+├── constraint.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# ⚡ Installation & Local Setup
+
+## Prerequisites
+
+* Python 3.8+
+* pip
+
+## Clone Repository
+
+```bash
+git clone https://github.com/Ajinkya-Ghuge/Datasphere.git
+
+cd Datasphere
+```
+
+## Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux/macOS:
+
+```bash
+source venv/bin/activate
+```
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Run Application
+
+```bash
+python app.py
+```
+
+Open:
+
+```text
+http://localhost:5000
+```
+
+---
+
+# 🔌 API Reference
+
+| Method | Endpoint | Description         |
+| ------ | -------- | ------------------- |
+| GET    | /        | Load Dashboard      |
+| POST   | /predict | Predict Expiry Date |
+
+### Example Request
+
+```json
+{
+  "temperature": 25,
+  "humidity": 60,
+  "packaging": "Plastic",
+  "ingredients": "Milk Powder"
+}
+```
+
+### Example Response
+
+```json
+{
+  "predicted_shelf_life_days": 365,
+  "confidence_score": 0.94
+}
+```
+
+---
+
+<div align="center">
+
+## 👤 Author
+
+### Ajinkya Ghuge
+
+GitHub: https://github.com/Ajinkya-Ghuge
+
+⭐ Star this repository if you found it useful!
+
+</div>
