@@ -47,21 +47,21 @@
 
 ## 🎯 Project Overview
 
-Manual tracking and guesswork regarding product expiration lead to massive inventory losses, safety risks, and operational waste. The **Expiry Date Predictor** acts as an automated solution that evaluates intricate raw feature variables—such as dynamic ingredients, volatile packaging materials, and active storage environment conditions—to forecast an exact, data-backed shelf life duration matrix. 
+Manual tracking and guesswork regarding product expiration lead to massive inventory losses, safety risks, and operational waste. The **Expiry Date Predictor** acts as an automated solution that evaluates intricate raw feature variables—such as dynamic ingredients, volatile packaging materials, and active storage environment conditions—to forecast an exact, data-backed shelf life duration matrix.
 
 ### Core Objectives
-* 🧾 **Minimize Resource Waste:** Assists production facilities in mitigating supply chain decay through preventative timelines.
-* 🛡️ **Optimize Safety Assurance:** Provides chemical, pharmaceutical, and consumable goods providers with predictive safety safety nets.
-* 📦 **Streamline Inventory Flow:** Equips warehouse managers with accurate predictive indices for first-expired, first-out (FEFO) strategies.
+- 🧾 **Minimize Resource Waste:** Assists production facilities in mitigating supply chain decay through preventative timelines.
+- 🛡️ **Optimize Safety Assurance:** Provides chemical, pharmaceutical, and consumable goods providers with predictive safety safety nets.
+- 📦 **Streamline Inventory Flow:** Equips warehouse managers with accurate predictive indices for first-expired, first-out (FEFO) strategies.
 
 ---
 
 ## ✨ Key Features
 
-* 🔍 **Multi-Variable Feature Analysis:** Aggregates multi-dimensional product configurations (e.g., compounding components, air exposure profiles, baseline temperature bounds).
-* 🧠 **Advanced Regression Inference:** Uses trained scikit-learn estimators to convert dynamic environmental thresholds into real-time shelf life counts.
-* 📊 **Insightful Exploratory Dashboards:** Packaged alongside exploratory rendering matrices utilizing Matplotlib and Seaborn for dataset profiling.
-* 🔌 **API Integration Layer:** Exposes modular HTTP service routes designed to accept payload vectors and stream instantaneous predictions out to client ERP nodes.
+- 🔍 **Multi-Variable Feature Analysis:** Aggregates multi-dimensional product configurations (e.g., compounding components, air exposure profiles, baseline temperature bounds).
+- 🧠 **Advanced Regression Inference:** Uses trained scikit-learn estimators to convert dynamic environmental thresholds into real-time shelf life counts.
+- 📊 **Insightful Exploratory Dashboards:** Packaged alongside exploratory rendering matrices utilizing Matplotlib and Seaborn for dataset profiling.
+- 🔌 **API Integration Layer:** Exposes modular HTTP service routes designed to accept payload vectors and stream instantaneous predictions out to client ERP nodes.
 
 ---
 
@@ -80,7 +80,7 @@ graph TD
     subgraph ClientLayer [User Web Interface Layer]
         A[HTML Input Dashboards<br>Product Parameter Form UI]:::client
         B[Static App Assets<br>Form Validation Engine]:::client
-        A <--> B
+        A --- B
     end
 
     subgraph ServerLayer [Flask Application Backend]
@@ -96,52 +96,8 @@ graph TD
     end
 
     %% Structural Connectivity Flow
-    B <=>|REST API JSON Payloads| C
-    C <=>|Vector Extrapolation| D
+    B -->|REST API JSON Payloads| C
+    C -->|REST API JSON Responses| B
+    C -->|Vector Extrapolation| D
+    D -->|Inference Return Arrays| C
     E -->|Model Performance Validation| D
-Request Flow Workflow
-Code snippet
-sequenceDiagram
-    autonumber
-    actor User as Inventory Admin Panel
-    participant App as Flask Router (app.py)
-    participant Model as AI Core Engine (model.py)
-    participant Metrics as Visualization Layer
-
-    User->>App: Submits Product Specs (Ingredients, Temperature, Packaging)
-    App->>Model: Maps Incoming Fields to Data Wrangling NumPy Matrix Array
-    
-    activate Model
-    Model->>Model: Applies Preprocessing Transformers & Evaluation Pipelines
-    Model-->>App: Dispatched Predicted Fractional Expiry & Target Timelines
-    deactivate Model
-
-    App->>Metrics: Sends Structural Run Event Context Log Coordinates
-    App-->>User: Populates Dynamic UI Cards with Precise Expiry Inferences
-🤖 Machine Learning Pipeline
-The internal intelligence matrix transforms raw physical components into highly accurate storage decay curves:
-
-Code snippet
-graph LR
-    classDef step fill:#112244,stroke:#00f5ff,stroke-width:2px,color:#fff;
-    
-    A[Data Ingestion<br>Ingredients & Storage Profiles]:::step --> B[Data Wrangling<br>Pandas & NumPy Cleaning]:::step
-    B --> C[Feature Matrix Encoding<br>Packaging & Compound Encoding]:::step
-    C --> D[Model Estimator Pipeline<br>Scikit-Learn Evaluation]:::step
-    D --> E[Inference Stream Outputs<br>Target Expiry Date Projections]:::step
-🚀 Project Workflow
-Code snippet
-flowchart TD
-    Start([Initialize Predictive Server Application]) --> Ingest[Parse Configuration & Load ML Weights]
-    Ingest --> ServerCheck{Bind Web Sockets & Paths}
-    
-    ServerCheck --|Port Busy| Kill[Terminate Dead Connections] --> Ingest
-    ServerCheck --|Available| Boot[Serve Local Flask Service Host]
-    
-    Boot --> Listen{Awaiting Evaluation Request}
-    Listen -->|Form Ingestion Submitted| Extrapolate[Wrangle Payload Fields via Pandas Vectors]
-    Extrapolate --> RunInference[Evaluate Profile Against Regression Pipeline]
-    RunInference --> OutputJSON[Generate Response Mapping Context Data]
-    OutputJSON --> ReturnView[Render Results Card View in Dashboard Panel]
-    
-    ReturnView --> End([Present Active Expiry Profile to User Interface])
